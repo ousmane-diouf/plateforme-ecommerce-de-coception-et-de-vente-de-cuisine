@@ -3,10 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ModuleProduitController;
+use App\Http\Controllers\MateriauController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
 // 1. Routes publiques (Ouvertes aux visiteurs)
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -19,6 +22,20 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/admin/dashboard', function() {
             return response()->json(['message' => 'Espace Secrétariat / Admin']);
         });
+
+        // CRUD Modules Produits
+        Route::get('/admin/modules',         [ModuleProduitController::class, 'index']);
+        Route::post('/admin/modules',        [ModuleProduitController::class, 'store']);
+        Route::get('/admin/modules/{id}',    [ModuleProduitController::class, 'show']);
+        Route::put('/admin/modules/{id}',    [ModuleProduitController::class, 'update']);
+        Route::delete('/admin/modules/{id}', [ModuleProduitController::class, 'destroy']);
+
+        // CRUD Matériaux
+        Route::get('/admin/materiaux',         [MateriauController::class, 'index']);
+        Route::post('/admin/materiaux',        [MateriauController::class, 'store']);
+        Route::get('/admin/materiaux/{id}',    [MateriauController::class, 'show']);
+        Route::put('/admin/materiaux/{id}',    [MateriauController::class, 'update']);
+        Route::delete('/admin/materiaux/{id}', [MateriauController::class, 'destroy']);
     });
 
     // Espace accessible aux Commerciaux ET aux Admins
