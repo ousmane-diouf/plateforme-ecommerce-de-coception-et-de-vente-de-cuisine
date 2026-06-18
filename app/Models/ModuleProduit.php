@@ -23,6 +23,7 @@ class ModuleProduit extends Model
         'ModuleProduit_id',
         'ModuleProduit_nom',
         'categorie',
+        'largeur_cm',
         'prix_base',
         'image_url',
         'actif',

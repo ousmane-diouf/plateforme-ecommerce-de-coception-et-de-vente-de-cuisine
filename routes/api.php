@@ -14,6 +14,10 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// Route publique — Catalogue des modules (accessible sans token)
+Route::get('/modules', [ModuleProduitController::class, 'index']);
+Route::get('/modules/{id}', [ModuleProduitController::class, 'show']);
+
 // 2. Routes sécurisées de l'application (Nécessitent un Token JWT valide)
 Route::middleware('auth:api')->group(function () { 
 
